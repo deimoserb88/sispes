@@ -164,8 +164,8 @@
     <script src="http://www.ucol.mx/cms/js/main.js"></script>
     <script src="http://www.ucol.mx/cms/js/custom.js"></script>
 
-    {!! Html::script('public/assets/vendor/jquery/dist/jquery.min.js') !!}
-    {!! Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') !!}
+    {{ Html::script('public/assets/vendor/jquery/dist/jquery.min.js') }}
+    {{ Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
 
     @yield('scripts'){{--Para scripts propios del módulo--}}
 
