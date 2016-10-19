@@ -52,7 +52,7 @@
                     <a class="escudo" href="http://www.ucol.mx/">&nbsp;</a>
                     <a class="nombre" href="http://www.ucol.mx/">&nbsp;</a>
                 </div>
-            <div class="TituloDep">Direcci&oacute;n General de Educaci&oacute;n Superior</div>
+            <div class="TituloDep">Dirección General de Educación Superior</div>
                 <ul class="hidden-mobile" id="menu-header">
                     <form action="http://www.ucol.mx/conocenos/buscar.htm" id="search-form" class="">
                         <div class="input-append pull-right">
@@ -62,8 +62,7 @@
                                 <input id="q" class="search" name="q" type="text" placeholder="Buscar en ucol..." size="16">
                                 <input name="more" class="botonbuscar" value="" type="submit">
                         </div>
-                    </form>
-                    <li><a href="http://www.ucol.mx/alumnos/" target="_blank">Alumnos</a></li>
+                    </form>                    
                     <li><a href="http://www.ucol.mx/trabajadores/" target="_blank">Trabajadores</a></li>
                 </ul>
             </div><!--encabezdo-->
@@ -89,10 +88,10 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-{{--                 <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Inicio </a></li>
                 </ul>
- --}}
+
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     @yield('menu_items')
@@ -105,8 +104,8 @@
                                 {{ explode(" ",Auth::user()->name)[0] }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/selectProfile') }}">Panel de actividades<i class="fa fa-btn fa-tasks"></i></a></li>
-                                <li><a href="{{ url('/logout') }}">Cerrar sesión<i class="fa fa-btn fa-sign-out"></i></a></li>
+                                <li><a href="{{ url('/selectProfile') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                <li><a href="{{ url('/logout') }}">Cerrar sesión <i class="fa fa-btn fa-sign-out"></i></a></li>
                             </ul>
                         </li>
                     @endif
@@ -167,7 +166,9 @@
     {{ Html::script('public/assets/vendor/jquery/dist/jquery.min.js') }}
     {{ Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
 
-    @yield('scripts'){{--Para scripts propios del módulo--}}
+    
+
+    @yield('scripts'){{--Para scripts JQuery propios del módulo--}}
 
 </body>
 </html>

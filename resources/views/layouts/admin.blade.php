@@ -5,16 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SPAL</title>
+    <title>[SISPES]</title>
 
     <link type="image/x-icon" href="http://www.ucol.mx/cms/img/favicon.ico" rel="icon" />
     {{--Estilos--}}
-    {!! Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') !!}<!-- Fonts -->
-    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') !!}<!-- Iconos -->
-    {!! Html::style('assets/vendor/bootstrap/dist/css/bootstrap.min.css') !!}
-    {!! Html::style('http://www.ucol.mx/cms/headerfooterapp.css') !!}
-    {!! Html::style('assets/vendor/bootstrap/dist/css/bootstrap-theme.min.css') !!}
-
+    {{ Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') }}<!-- Fonts -->
+    {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}<!-- Iconos -->
+    {{ Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}<!-- Bootstrap -->
+    {{ Html::style('http://www.ucol.mx/cms/headerfooterapp.css') }}
+    
 
     @yield('estilos') <!--Para agregar estilos propios de cada modulo-->
 
@@ -64,6 +63,7 @@
                                 <input name="more" class="botonbuscar" value="" type="submit">
                         </div>
                     </form>
+                    <li><a href="http://www.ucol.mx/alumnos/" target="_blank">Alumnos</a></li>
                     <li><a href="http://www.ucol.mx/trabajadores/" target="_blank">Trabajadores</a></li>
                 </ul>
             </div><!--encabezdo-->
@@ -83,35 +83,16 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Satisfacción con el proceso de admisión
+                    SISPES <i class="fa fa-btn fa-home"></i>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-home"></i> Inicio</a></li>
-                    <li><a href="{{ url('/avance') }}"><i class="fa fa-btn fa-table"></i> Avance</i></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-btn fa-columns"></i> Reportes<span      class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/resultados/detallados') }}">Detallados</a></li>
-                            <li><a href="{{ url('/resultados/generales') }}" target="_blank">Generales</a></li>
-                            <li><a href="{{ url('/resultados/deleg') }}" target="_blank">Por delegación</a></li>
-                            {{-- <li><a href="{{ url('/comparativo/anual') }}">Comparativo anual </a></li> --}}
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('/inscritos/captura') }}"><i class="fa fa-btn fa-pencil-square-o"></i> Captura inscritos </a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $anio }}<span      class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @foreach($anios as $a)
-                                <li><a href="{{ url('/anio/'.$a->anio) }}">{{ $a->anio }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>                    
+{{--                 <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/') }}">Inicio </a></li>
                 </ul>
-
+ --}}
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     @yield('menu_items')
@@ -121,10 +102,11 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <i class="fa fa-btn fa-user"></i> {{ Auth::user()->nombre }} <span class="caret"></span>
+                                {{ explode(" ",Auth::user()->name)[0] }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}">Cerrar sesión<i class="fa fa-btn fa-sign-out"></i></a></li>
+                                <li><a href="{{ url('/selectProfile') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                <li><a href="{{ url('/logout') }}">Cerrar sesión <i class="fa fa-btn fa-sign-out"></i></a></li>
                             </ul>
                         </li>
                     @endif
@@ -176,28 +158,18 @@
                 </div>
             </div>
         </footer>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-transition.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-alert.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-modal.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-scrollspy.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-tab.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-popover.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-button.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-collapse.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-carousel.js"></script>
-    <script src="http://www.ucol.mx/cms/js/bootstrap/js/bootstrap-typeahead.js"></script>
     <script src="http://www.ucol.mx/cms/js/jquery.mobilemenu.js"></script>
     <script src="http://www.ucol.mx/cms/js/jquery.liquidcarousel.js"></script>
     <script src="http://www.ucol.mx/cms/js/jquery.slides.js"></script>
     <script src="http://www.ucol.mx/cms/js/main.js"></script>
     <script src="http://www.ucol.mx/cms/js/custom.js"></script>
 
-    {!! Html::script('assets/vendor/jquery/dist/jquery.min.js') !!}
-    {!! Html::script('assets/vendor/bootstrap/dist/js/bootstrap.min.js') !!}
+    {{ Html::script('public/assets/vendor/jquery/dist/jquery.min.js') }}
+    {{ Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
 
-    @yield('scripts'){{--Para scripts propios del módulo--}}
+    
+
+    @yield('scripts'){{--Para scripts JQuery propios del módulo--}}
 
 </body>
 </html>

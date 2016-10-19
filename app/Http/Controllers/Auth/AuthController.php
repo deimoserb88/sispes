@@ -32,7 +32,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/selectProfile';//sera enviado a su módulo en función de su perfil
+    
 
     /**
      * Create a new authentication controller instance.
@@ -53,10 +54,13 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name'  => 'required|max:255',
+            'rol'   => 'required|max:5',
+            'plantD' => 'max:20',
+            'plantA' => 'max:4',
             'login' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:4|confirmed',
         ]);
     }
 
@@ -70,6 +74,10 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'rol' => $data['rol'],
+            'plantD' => $data['plantD'],
+            'plantA' => $data['plantA'],
+            'login' => $data['login'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

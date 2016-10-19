@@ -54,8 +54,21 @@
                         <div class="col-md-6">
                             <h3 class="text-primary text-center">Sistema para el Seguimiento de Prácticas en Educación Superior</h3>
                             <h4 class="text-center text-primary"><strong>Laboratorio - Taller - Campo</strong></h4>
-                            <br><br><br>
-                            <button type="button" onclick="window.location.href='{{ url('/login') }}'" class="btn btn-primary btn-block">Iniciar sesión <i class="fa fa-btn fa-sign-in"></i></button>
+                            <br>
+                            @if (Auth::guest())
+                              <br><br>
+                              <button type="button" onclick="window.location.href='{{ url('/login') }}'" class="btn btn-primary btn-block">Iniciar sesión <i class="fa fa-btn fa-sign-in"></i></button>
+                            @else
+
+                            <div class="panel panel-primary">
+                              <div class="panel-heading">Panel de actividades <i class="fa fa-btn fa-tasks"></i></div>
+                              <div class="panel-body">
+                                  Actividades...
+                              </div>                              
+                            </div>
+
+
+                            @endif
                         </div>
                     </div>
                 </div>
