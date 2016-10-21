@@ -16,9 +16,7 @@ class DocenteController extends Controller
 
     	$ciclo = $request->session()->get('id_ciclo');
     	$plant = $request->session()->get('plant');
-    	$periodos = Periodo::where('id_ciclo','=',$ciclo->first()->id)
-		    				->where('plant','=',$plant->first()->plant)
-		    				->get();
+    	$periodos = Periodo::where('id_ciclo','=',$ciclo->first()->id)->where('plant','=',$plant->first()->plant)->get();
     	return view('docente.home',compact('periodos'));
     }
 

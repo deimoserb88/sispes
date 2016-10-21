@@ -9,7 +9,11 @@
                 <div class="panel-body">
                     <table class="table table-striped">
                         @foreach($periodos as $p)
-                            <tr>td</tr>    
+                            <tr>
+                                <td>..</td>
+                                <td>..</td>
+                            </tr> 
+                        @endforeach   
                     </table>
 
 
