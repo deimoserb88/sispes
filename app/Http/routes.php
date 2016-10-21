@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/selectProfile','AdminController@index');
 
-Route::get('/selPlantel/{plant}','DocenteController@selplantel');
+Route::get('/cambiarPlantel/{des}','DocenteController@cambiarPlantel');
 
-Route::get('/docente_home','DocenteController@index');
+Route::get('/selPlantel/{plant}','DocenteController@selPlantel');
+
+Route::get('/docenteHome','DocenteController@index');

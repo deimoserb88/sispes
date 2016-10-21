@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use sispes\Http\Requests;
 use sispes\User;
 use sispes\Des;
+use sispes\Ciclo;
 use Auth;
 use DB;
 
 
 class AdminController extends Controller
 {
-    public function index(Request $request){    	
+    public function index(Request $request){   
+
+        $ciclo = Ciclo::where('activo','=','1')->get();
+        $request->session()->put('id_ciclo',$ciclo->first()->id);
+
         $u      = Auth::user();
         $rol 	= explode(",",$u->rol);
         $plantD = explode(",",$u->plantD);

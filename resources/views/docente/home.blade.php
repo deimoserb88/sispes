@@ -1,15 +1,34 @@
-@extends('layouts.admin')
+@extends('layouts.docente')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Panel de actividades del docente</div>
-
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Fechas programadas</div>                
                 <div class="panel-body">
-                    {{ $plantel }}
+                    <table class="table table-striped">
+                        @foreach($periodos as $p)
+                            <tr>td</tr>    
+                    </table>
+
+
                 </div>
+                <div class="panel-footer">...</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Prácticas realizadas</div>                
+                <div class="panel-body">...</div>
+                <div class="panel-footer">...</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">...</div>                
+                <div class="panel-body">...</div>
+                <div class="panel-footer">...</div>
             </div>
         </div>
     </div>

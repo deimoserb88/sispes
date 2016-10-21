@@ -88,9 +88,9 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
+{{--                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Inicio </a></li>
-                </ul>
+                </ul> --}}
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -104,7 +104,10 @@
                                 {{ explode(" ",Auth::user()->name)[0] }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/selectProfile') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                <li><a href="{{ url('/docenteHome') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                @if(count(explode(",",Auth::user()->plantD))>1)
+                                    <li><a href="{{ url('/cambiarPlantel/'.Auth::user()->plantD) }}">Cambiar de plantel <i class="fa fa-btn fa-random"></i></a></li>    
+                                @endif
                                 <li><a href="{{ url('/logout') }}">Cerrar sesión <i class="fa fa-btn fa-sign-out"></i></a></li>
                             </ul>
                         </li>

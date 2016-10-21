@@ -16,4 +16,8 @@ class Ciclo extends Model
         'desc','cde', 'ca', 'activo',
     ];
 
+    public function Periodo(){
+    	return $this->hasMany('sispes\Periodo');
+    }
+
 }

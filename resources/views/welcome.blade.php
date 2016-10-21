@@ -56,17 +56,22 @@
                             <h4 class="text-center text-primary"><strong>Laboratorio - Taller - Campo</strong></h4>
                             <br>
                             @if (Auth::guest())
+                              
                               <br><br>
                               <button type="button" onclick="window.location.href='{{ url('/login') }}'" class="btn btn-primary btn-block">Iniciar sesión <i class="fa fa-btn fa-sign-in"></i></button>
+
                             @else
 
-                            <div class="panel panel-primary">
-                              <div class="panel-heading">Panel de actividades <i class="fa fa-btn fa-tasks"></i></div>
-                              <div class="panel-body">
-                                  Actividades...
-                              </div>                              
-                            </div>
-
+                              <div class="panel panel-primary">
+                                <div class="panel-heading">Panel de actividades <i class="fa fa-btn fa-tasks"></i></div>
+                                <div class="panel-body">
+                                  <ul class="nav nav-horizontal">
+                                    <li><a href="#">Fechas programadas</a></li>
+                                    <li><a href="#">Prácticas realizadas</a></li>
+                                    <li><a href="#">Cambiar de plantel</a></li>                         
+                                  </ul>
+                                </div>                              
+                              </div>
 
                             @endif
                         </div>
