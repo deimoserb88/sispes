@@ -17,7 +17,7 @@ class Ciclo extends Model
     ];
 
     public function Periodo(){
-    	return $this->hasMany('sispes\Periodo');
+    	return $this->hasMany('sispes\Periodo','id_ciclo','id');
     }
 
 }

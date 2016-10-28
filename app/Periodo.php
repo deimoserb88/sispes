@@ -17,7 +17,14 @@ class Periodo extends Model
     ];    
 
     public function ciclo(){
-    	return $this->belongsTo('sispes\Ciclo');
+    	return $this->belongsTo('sispes\Ciclo','id_ciclo');
     }
+
+    public $clavesPeriodos = [ 0=>'Programación de prácticas',
+                                1=>'Primera parcial',
+                                2=>'Segunda parcial',
+                                3=>'Tercera parcial',
+                                4=>'Cuarta parcial',
+                                5=>'Quinta parcial'];
 
 }
