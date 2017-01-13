@@ -89,10 +89,18 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-{{--                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Inicio </a></li>
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/fechasProgramacion') }}">Programación de fechas</a></li>                    
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Practicas<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/rootPR') }}">Practicas realizadas</a></li>                    
+                            <li><a href="{{ url('/rootPP') }}">Practicas programadas</a></li>                    
+                        </ul>
+                    </li>
+                    <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo de trabajo</a></li>
                 </ul>
- --}}
+
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     @yield('menu_items')

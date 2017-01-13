@@ -105,8 +105,15 @@
                                 {{ explode(" ",Auth::user()->name)[0] }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/selectProfile') }}">Panel de actividades<i class="fa fa-btn fa-tasks"></i></a></li>
-                                <li><a href="{{ url('/logout') }}">Cerrar sesión<i class="fa fa-btn fa-sign-out"></i></a></li>
+                                @if(Auth::user()->rol == 2)
+                                    <li><a href="{{ url('/docenteHome') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                    @if(count(explode(",",Auth::user()->plantD))>1)
+                                        <li><a href="{{ url('/cambiarPlantel/'.Auth::user()->plantD) }}">Cambiar de plantel <i class="fa fa-btn fa-random"></i></a></li>    
+                                    @endif
+                                @elseif(Auth::user()->rol == 1)
+                                    <li><a href="{{ url('/adminHome') }}">Panel de actividades <i class="fa fa-btn fa-tasks"></i></a></li>
+                                @endif
+                                <li><a href="{{ url('/logout') }}">Cerrar sesión <i class="fa fa-btn fa-sign-out"></i></a></li>
                             </ul>
                         </li>
                     @endif
@@ -164,8 +171,8 @@
     <script src="http://www.ucol.mx/cms/js/main.js"></script>
     <script src="http://www.ucol.mx/cms/js/custom.js"></script>
 
-    {{ Html::script('public/assets/vendor/jquery/dist/jquery.min.js') }}
-    {{ Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
+    {{ Html::script('/public/assets/vendor/jquery/dist/jquery.min.js') }}
+    {{ Html::script('/public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
 
     @yield('scripts'){{--Para scripts propios del módulo--}}
 

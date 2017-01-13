@@ -20,11 +20,34 @@ class Periodo extends Model
     	return $this->belongsTo('sispes\Ciclo','id_ciclo');
     }
 
-    public $clavesPeriodos = [ 0=>'Programación de prácticas',
-                                1=>'Primera parcial',
-                                2=>'Segunda parcial',
-                                3=>'Tercera parcial',
-                                4=>'Cuarta parcial',
-                                5=>'Quinta parcial'];
+    private static $clavesPeriodos = [0=>'Programación de prácticas',
+                              1=>'Primera parcial',
+                              2=>'Segunda parcial',
+                              3=>'Tercera parcial',
+                              4=>'Cuarta parcial',
+                              5=>'Quinta parcial'];
+                              
+    public static function clavesPeriodos($cp){
+        return self::$clavesPeriodos[$cp];
+    }
+
+
+    private static $meses = [1=>['Ene','Enero'],
+                                ['Feb','Febrero'],
+                                ['Mar','Marzo'],
+                                ['Abr','Abril'],
+                                ['May','Mayo'],
+                                ['Jun','Junio'],
+                                ['Jul','Julio'],
+                                ['Ago','Agosto'],
+                                ['Sep','Septiembre'],
+                                ['Oct','Octubre'],
+                                ['Nov','Noviembre'],
+                                ['Dic','Diciembre'],
+                                ];
+    public static function mes($m,$t=0){
+        return self::$meses[$m][$t];
+    }
+
 
 }

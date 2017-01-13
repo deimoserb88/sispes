@@ -12,12 +12,12 @@
 
                             <div id="carousel-portada" class="carousel slide" data-ride="carousel" style="box-shadow: 5px 5px 20px #BBB;">
                               <!-- Indicators -->
- {{--                              <ol class="carousel-indicators">
+                              <ol class="carousel-indicators">
                                 <li data-target="#carousel-portada" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel-portada" data-slide-to="1"></li>
                                 <li data-target="#carousel-portada" data-slide-to="2"></li>
                                 <li data-target="#carousel-portada" data-slide-to="3"></li>
-                              </ol> --}}
+                              </ol>
 
                               <!-- Wrapper for slides -->
                               <div class="carousel-inner" role="listbox">
@@ -65,10 +65,21 @@
                               <div class="panel panel-primary">
                                 <div class="panel-heading">Panel de actividades <i class="fa fa-btn fa-tasks"></i></div>
                                 <div class="panel-body">
-                                  <ul class="nav nav-horizontal">
-                                    <li><a href="#">Fechas programadas</a></li>
-                                    <li><a href="#">Prácticas realizadas</a></li>
-                                    <li><a href="#">Cambiar de plantel</a></li>                         
+                                  <ul class="nav nav-pills nav-stacked">
+                                  @if(Auth::user()->rol == 0)
+                                    <li><a href="/rootFechas">Fechas</a></li>
+                                    <li><a href="/rootPP">Prácticas programadas</a></li>
+                                    <li><a href="/rootPR">Prácticas realizadas</a></li>
+                                    <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo</a></li>
+                                  @elseif(Auth::user()->rol == 1)
+                                    <li><a href="/adminFechas">Fechas programadas</a></li>
+                                    <li><a href="/adminPP">Prácticas programadas</a></li>
+                                    <li><a href="/adminPR">Prácticas realizadas</a></li>
+                                    <li><a href="/adminAcademico">Académico</a></li>
+                                  @elseif(Auth::user()->rol == 2)
+                                    <li><a href="{{ url('/cambiarPlantel/'.Auth::user()->plantD) }}">Cambiar de plantel</a></li>                         
+                                    <li><a href="/docnetePR">Prácticas realizadas</a></li>
+                                  @endif
                                   </ul>
                                 </div>                              
                               </div>

@@ -88,9 +88,9 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-{{--                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/') }}">Inicio </a></li>
-                </ul> --}}
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Está trabajando en el ciclo <strong>{{ $cicloNombre->first()->desc }}</strong></a></li>
+                </ul>
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">

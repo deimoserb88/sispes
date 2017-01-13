@@ -21,8 +21,21 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/selectProfile','AdminController@index');
 
+/*Docente*/
+
 Route::get('/cambiarPlantel/{des}','DocenteController@cambiarPlantel');
 
 Route::get('/selPlantel/{plant}','DocenteController@selPlantel');
 
-Route::get('/docenteHome','DocenteController@index');
+Route::get('/docenteHome/{plant?}','DocenteController@index');
+
+
+/*Aedmin (responsabel de plantel)*/
+
+Route::get('/adminHome/{rol?}','AdminController@index');
+
+/*Root*/
+
+Route::post('/cicloFijar','RootController@cicloFijar');
+
+Route::get('/cicloSeleccionar','RootController@cicloSeleccionar');
