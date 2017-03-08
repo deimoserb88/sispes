@@ -160,7 +160,7 @@
                                 <!-- &nbsp;<a href="http://www.fundacionucol.org/" target="_blank"><img src="/cms/img/fundacionUcol.png"></a> -->
                             </div>
                         </div>
-                        <div class="col-md-12 derechos">&copy; Derechos Reservados 2013-2016 Universidad de Colima</div>
+                        <div class="col-md-12 derechos">&copy; Derechos Reservados 2013-2017 Universidad de Colima</div>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Route::auth();
@@ -34,8 +34,16 @@ Route::get('/docenteHome/{plant?}','DocenteController@index');
 
 Route::get('/adminHome/{rol?}','AdminController@index');
 
+Route::get('/matdoc','AdminController@matdoc');
+
+Route::post('/savematdoc','AdminController@saveMatDoc');
+
 /*Root*/
 
 Route::post('/cicloFijar','RootController@cicloFijar');
 
 Route::get('/cicloSeleccionar','RootController@cicloSeleccionar');
+
+Route::get('/getWebService','AdminController@getWebService');
+
+

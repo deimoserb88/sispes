@@ -59,4 +59,30 @@ class AdminController extends Controller
     		}
     	}
     }
+
+    
+    /**
+     * [matDoc Modulo para regiustrar las asignaciones de docentes y materias]
+     * @return [null] []
+     */
+    public function matDoc(){
+        return view('admin.registro_materia_docente');
+    }
+
+    public function saveMatDoc(Request $request){
+        $texto = $request->datos;
+        $datos = preg_split("/((\r?\n)|(\r\n?))/",$texto);
+        foreach ($datos as $key => $value) {
+            $tabladatos[$key] = $value;
+        }
+        return view('admin.matdoclist',compact('tabladatos'));
+    }
+
+
+    public function getWebService(Request $request){
+        $url = 'http://sistemas2.ucol.mx/plandocente/practicas/';
+        $json = file_get_contents($url);
+        $datos = json_decode($json,true);        
+        return view('admin.webservicetest',compact('datos'));
+    }
 }

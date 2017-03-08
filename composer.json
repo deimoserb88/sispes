@@ -22,7 +22,11 @@
         ],
         "psr-4": {
             "sispes\\": "app/"
-        }
+        },
+        "files": [
+        "app/commfunc.php",
+        "app/inisesion.php"
+    ]
     },
     "autoload-dev": {
         "classmap": [

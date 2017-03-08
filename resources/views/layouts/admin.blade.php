@@ -10,14 +10,12 @@
     <link type="image/x-icon" href="http://www.ucol.mx/cms/img/favicon.ico" rel="icon" />
     {{--Estilos--}}
     {{ Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') }}<!-- Fonts -->
-    {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}<!-- Iconos -->
-    {{ Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') }}<!-- Bootstrap -->
+    {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}<!-- Iconos -->    
+    {{ Html::style('/public/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}<!-- Bootstrap -->
     {{ Html::style('http://www.ucol.mx/cms/headerfooterapp.css') }}
     
 
     @yield('estilos') <!--Para agregar estilos propios de cada modulo-->
-
-    {{-- JavaScripts --}}
 
 
     <style>
@@ -99,6 +97,8 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo de trabajo</a></li>
+                    <li><a href="{{ url('/getWebService') }}">Prueba Web Service</a></li>
+                    <li><a href="{{ url('/matdoc') }}">Asignaturas</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -166,14 +166,14 @@
                 </div>
             </div>
         </footer>
-    <script src="http://www.ucol.mx/cms/js/jquery.mobilemenu.js"></script>
+{{--     <script src="http://www.ucol.mx/cms/js/jquery.mobilemenu.js"></script>
     <script src="http://www.ucol.mx/cms/js/jquery.liquidcarousel.js"></script>
     <script src="http://www.ucol.mx/cms/js/jquery.slides.js"></script>
     <script src="http://www.ucol.mx/cms/js/main.js"></script>
-    <script src="http://www.ucol.mx/cms/js/custom.js"></script>
+    <script src="http://www.ucol.mx/cms/js/custom.js"></script> --}}
 
-    {{ Html::script('public/assets/vendor/jquery/dist/jquery.min.js') }}
-    {{ Html::script('public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
+    {{ Html::script('/public/assets/vendor/jquery/dist/jquery.min.js') }}
+    {{ Html::script('/public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
 
     
 
