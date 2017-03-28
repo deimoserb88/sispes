@@ -36,6 +36,8 @@ Route::get('/adminHome/{rol?}','AdminController@index');
 
 Route::get('/matdoc','AdminController@matdoc');
 
+Route::get('/gruposListar/{programa?}','AdminController@listaGrupos');
+
 Route::post('/savematdoc','AdminController@saveMatDoc');
 
 /*Root*/

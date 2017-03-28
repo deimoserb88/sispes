@@ -96,9 +96,15 @@
                             <li><a href="{{ url('/rootPP') }}">Practicas programadas</a></li>                    
                         </ul>
                     </li>
-                    <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo de trabajo</a></li>
-                    <li><a href="{{ url('/getWebService') }}">Prueba Web Service</a></li>
-                    <li><a href="{{ url('/matdoc') }}">Asignaturas</a></li>
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Sistema<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/matdoc') }}">Registro asignaturas/docentes</a></li>                    
+                            <li><a href="{{ url('/gruposListar') }}">Administracion de grupos</a></li>                    
+                        </ul>                            
+                    </li>
+                    <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo de trabajo</a></li>                    
+                    <li><a href="{{ url('/matdoc') }}">Asignaturas</a></li>                    
                 </ul>
 
                 <!-- Right Side Of Navbar -->

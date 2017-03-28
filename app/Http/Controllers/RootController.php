@@ -24,9 +24,10 @@ class RootController extends Controller
     	
     }
 
-    public function cicloSeleccionar(){
-        $ciclos = Ciclo::all()->sortBy('cde');        
-		return view('root.ciclo_seleccionar',compact('ciclos'));    	
+    public function cicloSeleccionar(Request $request){
+        $ciclos = Ciclo::all()->sortBy('cde'); 
+        $ciclo_trabajo = $request->session()->get('id_ciclo');       
+		return view('root.ciclo_seleccionar',compact('ciclos','ciclo_trabajo'));    	
     }
 }
  

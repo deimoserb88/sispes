@@ -22,13 +22,13 @@
             </tr>
         </thead>
         <tbody>      
-            @foreach($tabladatos as $registro)
-                <?php 
-                    $datos = explode(',',rtrim($registro));                                                                
-                ?>
-                @if(((int)$datos[0])>0 && !empty($datos[2]))
+            @foreach($datos as $registro)
+                @php
+                    $ds = explode(',',rtrim($registro));                                                                
+                @endphp
+                @if(((int)$ds[0])>0 && !empty($ds[2]))
                     <tr>
-                        @foreach($datos as $dato)
+                        @foreach($ds as $dato)
                             @if($dato!="")
                                 <td>{{ $dato }}</td>
                             @endif

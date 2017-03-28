@@ -17,8 +17,22 @@ class CreateAXXXXTable extends Migration
         foreach ($plants as $plant) {          
             Schema::create('a'.$plant, function (Blueprint $table) {
                 $table->increments('id');
-
+                $table->string('plan',10);
+                $table->string('gpo',1);
+                $table->tinyInteger('sem')->unsigned();
+                $table->integer('id_ciclo')->unsigned();
+                $table->string('asignatura',100);                
                 $table->timestamps();
+
+                $table->foreign('plan')
+                        ->references('plan')->on('programa')
+                        ->onDelete('restrict')
+                        ->onUpdate('cascade');
+                        
+                $table->foreign('id_ciclo')
+                        ->references('id')->on('ciclo')
+                        ->onDelete('restrict')
+                        ->onUpdate('cascade');
             });
         }
     }

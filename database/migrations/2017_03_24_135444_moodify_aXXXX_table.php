@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDXXXXTable extends Migration
+class MoodifyAXXXXTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,13 @@ class CreateDXXXXTable extends Migration
      */
     public function up()
     {
-
         $plants = ['3010','3020','3030','3040','3041','4012','5010','5020','5021','5022','5030','5040','5050','5060','5070','5080','5090','5100','5101','5110','5120','5130','5140','5150','5160','5170','5180','5190','5200','5210'];
         
-        foreach ($plants as $plant) {                    
-            Schema::create('d'.$plant, function (Blueprint $table) {                
-                $table->increments('id');
-                $table->string('notrab',5)->unique();
-                $table->string('nom',50);
-                $table->string('apat',30);
-                $table->string('amat',30);
-                $table->string('email',100)->unique();
-                $table->timestamps();                
+        foreach ($plants as $plant) {         
+            Schema::table('a'.$plant, function (Blueprint $table) {
+                //$plant = substr($table->getTable(),-4);
+                //$table->dropForeign('a'.$plant.'_id_ciclo_foreign');
+                $table->dropColumn('id_ciclo');
             });
         }
     }
@@ -35,6 +30,8 @@ class CreateDXXXXTable extends Migration
      */
     public function down()
     {
-        Schema::drop('dXXXX');
+        Schema::table('aXXXX', function (Blueprint $table) {
+            //
+        });
     }
 }

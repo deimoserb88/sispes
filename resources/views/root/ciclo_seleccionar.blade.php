@@ -13,7 +13,7 @@
                             <div class="form-group">
                                 <select name="ciclo" id="ciclo" class="form-controler">
                                     @foreach($ciclos as $c)
-                                        <option value="{{ $c->id }}" @if($c->activo) selected="selected" @endif>{{ $c->desc}}</option>
+                                        <option value="{{ $c->id }}" @if($c->id == $ciclo_trabajo) selected="selected" @endif>{{ $c->desc}}</option>
                                     @endforeach
                                 </select>
                             </div>
