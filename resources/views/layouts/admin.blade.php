@@ -12,6 +12,7 @@
     {{ Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') }}<!-- Fonts -->
     {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css') }}<!-- Iconos -->    
     {{ Html::style('/public/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}<!-- Bootstrap -->
+    {{ Html::style('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css') }}{{-- Editable --}}
     {{ Html::style('http://www.ucol.mx/cms/headerfooterapp.css') }}
     
 
@@ -39,6 +40,57 @@
         .fa-btn {
             margin-left: 6px;
         }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left>.dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+
+
+
     </style>
 </head>
 <body id="app-layout"  data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -97,14 +149,20 @@
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Sistema<span class="caret"></span></a>
+                            Académico<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/matdoc') }}">Registro asignaturas/docentes</a></li>                    
-                            <li><a href="{{ url('/gruposListar') }}">Administracion de grupos</a></li>                    
-                        </ul>                            
+                        <li><a href="{{ url('/listadocentes') }}">Docentes</a></li>
+                        <li class="dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Asignaturas</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/listaasig') }}">Listado de asignaturas</a></li>
+                                <li><a href="{{ url('/matasig') }}">Materias asignadas</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ url('/listaprogramas') }}">Programas</a></li>
+                        </ul>
                     </li>
-                    <li><a href="{{ url('/cicloSeleccionar') }}">Cambiar ciclo de trabajo</a></li>                    
-                    <li><a href="{{ url('/matdoc') }}">Asignaturas</a></li>                    
+                    <li><a href="{{ url('/cicloSeleccionar') }}">Ciclo de trabajo</a></li>                    
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -180,6 +238,8 @@
 
     {{ Html::script('/public/assets/vendor/jquery/dist/jquery.min.js') }}
     {{ Html::script('/public/assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}
+    {{ Html::script('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js') }}
+
 
     
 

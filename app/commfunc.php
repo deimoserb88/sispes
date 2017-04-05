@@ -15,3 +15,26 @@ function addPlantelDocente($plants,$plant){
 		return $plants;
 	}
 }
+
+/**
+ * [materias que se descartan por defecto]
+ * @param  [string] $mat [materia a revisar]
+ * @return [boolean]      [true=> descartar]
+ */
+function matDesc($mat){
+	$matdesc = ["ACTIVIDADES CULTURALES",
+				"SERVICIO SOCIAL",				
+				"INGLES",
+				"ELECTIVA",
+				"SEMINARIO",				
+				"PRACTICA PROFESIONAL"];
+
+	$desc = false;
+
+	foreach($matdesc as $md){
+		$desc = strpos($mat, $md) !== false || $desc;
+	}
+
+	return $desc;
+
+}

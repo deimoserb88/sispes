@@ -16,6 +16,10 @@ class Asignatura extends Model
     	return $this->table;
     }
 
+    public function Programa(){
+    	return $this->belongsTo('sispe\Programa','plan');
+    }
+
     protected $fillable = [
         'plan','gpo','sem','asignatura',
     ];

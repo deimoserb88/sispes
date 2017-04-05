@@ -10,6 +10,7 @@ use sispes\Ciclo;
 use sispes\Periodo;
 use sispes\Asignatura;
 use sispes\Programa;
+use sispes\DA;
 use Auth;
 use DB;
 
@@ -92,16 +93,23 @@ class AdminController extends Controller
     public function saveMatDoc(Request $request){
         $texto = $request->datos;
         $datos = preg_split("/((\r?\n)|(\r\n?))/",$texto);
-        $erroresD = $erroresM = [];
+        $erroresD = $erroresM = $MD = [];
         $id_ciclo = $request->session()->get('id_ciclo');
+        $ciclo = Ciclo::select('desc')->where('id','=',$id_ciclo)->get();
+        //$ciclo = sispes\Ciclo::select('desc')->where('id','=','13')->get();
 
         foreach($datos as $lineadatos){
-            $te = false; //tiene error
+            $te = false; //te => Tiene Error
             $registro = explode(',',substr($lineadatos,0,strrpos($lineadatos,',')));
-            //print_r($registro);echo "<br>";
+
+            /**
+             * Si la linea de datos provenientes de la exportacion de sicecu a csv
+             * no comienza con un valor numerico entero, es por que se trata de una
+             * linea d eencabezados u otros datos, debe ser ignorado.
+             */
+
             if((int)$registro[0]>0){
-               list($i,$materia,$numtrab,$nom,$sem,$gpo,$plan) = $registro; 
-               //echo $i." - ".$materia."<br>";
+               list($i,$materia,$numtrab,$nom,$sem,$gpo,$plan) = $registro;                
             }else{
                 continue;
             }
@@ -121,7 +129,7 @@ class AdminController extends Controller
                     $doc->rol       = '2'; //2 = docente 
                     $doc->password  = bcrypt($numtrab);//posteriormente se le permitirá que cambi su contrasena, en su primer inicio de sesion
                 }else{
-                    //si el docente ya está registrado, agregamos el plantel de trabajo actual, ver addPlantelDocente en commfunc.php
+                    //si el docente ya esta registrado, agregamos el plantel de trabajo actual, ver addPlantelDocente en commfunc.php
                     $doc->plantD    = addPlantelDocente($doc->plantD,$request->session()->get('plant'));
                 }
                 $doc->save();
@@ -139,37 +147,119 @@ class AdminController extends Controller
             if(!$te && !empty($materia) && !empty($sem) && !empty($gpo)){
                 
                 $prog = Programa::where('plan','=',$plan)->first();
-                if(!empty($prog)){
+                
+                /**
+                 * se descartan por defecto las materias de actividades culturales y deporticas, 
+                 * servicio socila, inglés, seminarios y electivas, usanod la función matDesc
+                 * en commfunc.php
+                 */                
+
+                if(!empty($prog) && !matDesc($materia)){
                     $mat = new Asignatura;
                     $mat->usar($request->session()->get('plant'));
-                    $mat->firstOrNew(['asignatura'=>$materia,'gpo'=>$gpo,'sem'=>$sem]);
-                    echo "->".$materia." - " .$gpo. " - ".$sem."<br>";
-                    if(is_null($mat->id)){
+                    $t = $mat->where('asignatura','=',$materia)->where('gpo','=',$gpo)->where('sem','=',$sem)->first();               
+                    if(is_null($t)){
                         $mat->plan = $plan;
                         $mat->gpo = $gpo;
                         $mat->sem = $sem;
                         $mat->asignatura = $materia;
-                        //$mat->save();
-                        //echo "materia registrada: ".$mat->id. " - " .$mat->asignatura."<br>";
+                        $mat->save();                        
+                    }else{
+                        $mat->id = $t->id;
                     }
                 }elseif(!in_array('Programa no encontrado: '.$plan,array_column($erroresM,'Error de programa'))){                        
                     $erroresM[] = ['Error de programa'=>'Programa no encontrado: '.$plan];
-                    $te = true;                    
+                    $te = true;
+                }else{
+                    $te = true;
                 }
             }
+
+            /**
+             * (3) si no hay errores, (i.e. $te = false), se procede a guardar el regostro de relacion
+             * materia docente para el ciclo en curso (ciclo de trabajo)
+             */
             
-        }
+            if(!$te){
+                $da = new DA;
+                $da->usar($request->session()->get('plant'));                                
+                $t = $da->where('id_asigna','=',$mat->id)->where('id_docente','=',$doc->id)->where('id_ciclo','=',$id_ciclo)->first();
+                if(is_null($t)){                 
+                    $da->id_asigna = $mat->id;
+                    $da->id_docente = $doc->id;
+                    $da->id_ciclo = $id_ciclo;
+                    $da->save();
+                }else{
+                    $da->id = $t->id;
+                }
+            }
 
+            /**
+             * construimos una array para envar la lista a la vista de seleccion
+             * de las materias que si tiene prácticas
+             */
+            if(!$te){
+                $MD[] = ["id"=>$da->id,"mat"=>$materia,"doc"=>$nom,'gpo'=>$sem.$gpo,'plan'=>$plan];
+            }
 
-        return view('admin.matdoclist',compact('datos'));
-        //}
+            
+        }        
+
+        return view('admin.matdoclist',compact('ciclo','MD'));
+        
     }
 
+    public function materiasAsignadas(Request $request){
+        $plant = $request->session()->get('plant');
+        $id_ciclo = $request->session()->get('id_ciclo');
+        $ciclo = Ciclo::select('desc')->where('id','=',$id_ciclo)->get();
+        $mat = new Asignatura;
+        $mat->usar($plant);  
+        $da = new DA;
+        $da->usar($plant);                                
+              
+        $MD = $da->select(DB::raw('da'.$plant.'.id,a'.$plant.'.asignatura as mat,users.name as doc,concat(a'.$plant.'.sem,a'.$plant.'.gpo) as gpo,a'.$plant.'.plan'))
+                    ->leftJoin('a'.$plant,'da'.$plant.'.id_asigna','=','a'.$plant.'.id')
+                    ->leftJoin('users','da'.$plant.'.id_docente','=','users.id')
+                    ->get()->toArray();
+
+        return view('admin.matdoclist',compact('ciclo','MD'));
+    }
+
+
+    public function materiasPracticas(Request $request){
+        $siPracticas = $request->toArray()['si'];
+
+        $da = new DA;
+        $da->usar($request->session()->get('plant'));
+
+        $r = $da->whereNotIn('id',$siPracticas)->get(['id']);
+
+        foreach($r as $dato){
+            $da->where('id', '=',$dato->id)->delete();
+        }
+        
+        return redirect()->action('AdminController@materiasAsignadas');
+    }
 
     public function getWebService(Request $request){
         $url = 'http://sistemas2.ucol.mx/plandocente/practicas/';
         $json = file_get_contents($url);
         $datos = json_decode($json,true);        
         return view('admin.webservicetest',compact('datos'));
+    }
+
+    public function listadoAsignaturas(Request $request,$plan = "%%"){
+        $asignatura = new Asignatura;
+        $asignatura->usar($request->session()->get('plant'));
+
+        $planes = $asignatura->distinct('plan')->get()->toArray();
+
+        $p = Programa::whereIn('plan',$planes)->get(['id','programa']);
+
+        $a = $asignatura->where('plan','like',$plan)->get();
+
+        return $a;
+
     }
 }
