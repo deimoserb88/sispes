@@ -24,7 +24,8 @@ class AdminController extends Controller
      */
     public function index(Request $request,$r = null){   
 
-        $ciclo = Ciclo::where('activo','=','1')->get();        
+        $ciclo = Ciclo::where('activo','=','1')->get(); 
+        $ciclo_trabajo = $ciclo->first()->id;       
         $request->session()->put('id_ciclo',$ciclo->first()->id);
         $cicloNombre = Ciclo::select('desc')->where('id','=',$ciclo->first()->id)->get();
 
@@ -43,7 +44,7 @@ class AdminController extends Controller
     	}elseif($rol[0] == 0){
             $ciclos = Ciclo::all()->sortBy('cde');
             $request->session()->put('rol','0');
-    		return view('root.ciclo_seleccionar',compact('ciclos'));
+    		return view('root.ciclo_seleccionar',compact('ciclos','ciclo_trabajo'));
     	}else{
             $request->session()->put('rol','2');
             $periodo = new Periodo;
@@ -249,17 +250,22 @@ class AdminController extends Controller
         return view('admin.webservicetest',compact('datos'));
     }
 
+
+
     public function listadoAsignaturas(Request $request,$plan = "%%"){
         $asignatura = new Asignatura;
         $asignatura->usar($request->session()->get('plant'));
 
-        $planes = $asignatura->distinct('plan')->get()->toArray();
+        $planes = $asignatura->select('plan')->distinct('plan')->get()->toArray();
 
-        $p = Programa::whereIn('plan',$planes)->get(['id','programa']);
-
+        $progs = Programa::select('plan','programa')->whereIn('plan',array_flatten($planes))->distinct('programa')->get(['id','programa']);
+        $p = [];
+        foreach($progs as $v){
+            $p[$v['plan']] = $v['programa'];
+        }        
         $a = $asignatura->where('plan','like',$plan)->get();
-
-        return $a;
+        $pln = $plan;
+        return view('admin.asignaturas_listar',compact('a','p','pln'));
 
     }
 }

@@ -38,7 +38,7 @@ Route::get('/matdoc','AdminController@matdoc');
 
 Route::get('/matasig','AdminController@materiasAsignadas');
 
-Route::get('/listaasig','AdminController@listadoAsignaturas');
+Route::get('/listaasig/{plan?}','AdminController@listadoAsignaturas');
 
 Route::get('/gruposListar/{programa?}','AdminController@listaGrupos');
 
