@@ -29,6 +29,8 @@ class AdminController extends Controller
         $request->session()->put('id_ciclo',$ciclo->first()->id);
         $cicloNombre = Ciclo::select('desc')->where('id','=',$ciclo->first()->id)->get();
 
+        //$plantel = plantelActivo();       
+
         $u = Auth::user();
         if(!is_null($r)){
             $rol[0] = $r;
@@ -37,14 +39,19 @@ class AdminController extends Controller
         }
         $plantD = explode(",",$u->plantD);
     	$plantA = $u->plantA;
+
+        $des = new Des;
+        $p = $des->select('plant','nomplant')->orderBy('nomplant')->get();//planteles para el root
+        $plantel = $des->plantelactivo($request);
+
     	if(count($rol)>1||$rol[0] == 1){
             $request->session()->put('plant',$plantA);
             $request->session()->put('rol','1');            
-    		return view('admin.home',compact('plantA'));
+    		return view('admin.home',compact('plantA','p','plantel'));
     	}elseif($rol[0] == 0){
             $ciclos = Ciclo::all()->sortBy('cde');
-            $request->session()->put('rol','0');
-    		return view('root.ciclo_seleccionar',compact('ciclos','ciclo_trabajo'));
+            $request->session()->put('rol','0');            
+    		return view('root.ciclo_seleccionar',compact('ciclos','ciclo_trabajo','p','plantel'));
     	}else{
             $request->session()->put('rol','2');
             $periodo = new Periodo;
@@ -87,8 +94,11 @@ class AdminController extends Controller
      * [matDoc Modulo para registrar las asignaciones de docentes y materias]
      * @return [null] []
      */
-    public function matDoc(){
-        return view('admin.registro_materia_docente');
+    public function matDoc(Request $request){
+        $des = new Des;
+        $p = $des->select('plant','nomplant')->orderBy('nomplant')->get();//planteles para el root
+        $plantel = $des->plantelactivo($request);
+        return view('admin.registro_materia_docente',compact('p','plantel'));
     }
 
     public function saveMatDoc(Request $request){
@@ -205,8 +215,10 @@ class AdminController extends Controller
 
             
         }        
-
-        return view('admin.matdoclist',compact('ciclo','MD'));
+        $des = new Des;
+        $p = $des->select('plant','nomplant')->orderBy('nomplant')->get();//planteles para el root
+        $plantel = $des->plantelactivo($request);
+        return view('admin.matdoclist',compact('ciclo','MD','p'));
         
     }
 
@@ -223,8 +235,10 @@ class AdminController extends Controller
                     ->leftJoin('a'.$plant,'da'.$plant.'.id_asigna','=','a'.$plant.'.id')
                     ->leftJoin('users','da'.$plant.'.id_docente','=','users.id')
                     ->get()->toArray();
-
-        return view('admin.matdoclist',compact('ciclo','MD'));
+        $des = new Des;
+        $p = $des->select('plant','nomplant')->orderBy('nomplant')->get();//planteles para el root
+        $plantel = $des->plantelactivo($request);
+        return view('admin.matdoclist',compact('ciclo','MD','p','plantel'));
     }
 
 
@@ -259,13 +273,16 @@ class AdminController extends Controller
         $planes = $asignatura->select('plan')->distinct('plan')->get()->toArray();
 
         $progs = Programa::select('plan','programa')->whereIn('plan',array_flatten($planes))->distinct('programa')->get(['id','programa']);
-        $p = [];
+        $carr = [];
         foreach($progs as $v){
-            $p[$v['plan']] = $v['programa'];
+            $carr[$v['plan']] = $v['programa'];
         }        
         $a = $asignatura->where('plan','like',$plan)->get();
         $pln = $plan;
-        return view('admin.asignaturas_listar',compact('a','p','pln'));
+        $des = new Des;
+        $p = $des->select('plant','nomplant')->orderBy('nomplant')->get();//planteles para el root
+        $plantel = $des->plantelactivo($request);
+        return view('admin.asignaturas_listar',compact('a','carr','pln','p','plantel'));
 
     }
 }

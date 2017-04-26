@@ -7,6 +7,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Registrar asignación de Materias a Docentes</div>
                 <div class="panel-body">
+
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/savematdoc') }}">
 					 {{ csrf_field() }}
 						<div class="form-group">
@@ -20,6 +21,7 @@
 						</div>
 						<button type="submit" class="btn btn-success">Guardar</button>
 					</form>
+                
                 </div>
             </div>
         </div>

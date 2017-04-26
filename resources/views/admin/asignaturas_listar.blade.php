@@ -18,7 +18,7 @@
   						<span class="input-group-addon" id="basic-addon1">Programa</span>  						
 						<select class="form-control" name="plan" id="plan">
 							<option value="">Todos</option>
-							@foreach($p as $plan=>$prog)
+							@foreach($carr as $plan=>$prog)
 								<option value="{{ $plan }}" {{ $plan == $pln ? 'selected="selected"' : '' }}>{{ $prog }}</option>
 							@endforeach
 						</select>
@@ -40,7 +40,7 @@
 				<tbody>
 					@foreach($a as $asigna)
 						<tr>
-							<td><span data-toggle="tooltip" data-placement="right" title="{{ $p[$asigna->plan] }}">{{ $asigna->plan }}</span></td>
+							<td><span data-toggle="tooltip" data-placement="right" title="{{ $carr[$asigna->plan] }}">{{ $asigna->plan }}</span></td>
 							<td>{{ $asigna->asignatura }}</td>
 							<td>{{ $asigna->sem }}o</td>
 							<td>{{ $asigna->gpo }}</td>

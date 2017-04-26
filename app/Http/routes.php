@@ -17,41 +17,91 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', [
+		'middleware'=>'auth',
+		'uses' => 'HomeController@index'
+]);
 
-Route::get('/selectProfile','AdminController@index');
+Route::get('/selectProfile',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@index'
+]);
 
 /*Docente*/
 
-Route::get('/cambiarPlantel/{des}','DocenteController@cambiarPlantel');
+Route::get('/cambiarPlantel/{des}',[
+		'middleware'=>'auth',
+		'uses' => 'DocenteController@cambiarPlantel'
+]);
 
-Route::get('/selPlantel/{plant}','DocenteController@selPlantel');
+Route::get('/selPlantel/{plant}',[
+		'middleware'=>'auth',
+		'uses' => 'DocenteController@selPlantel'
+]);
 
-Route::get('/docenteHome/{plant?}','DocenteController@index');
+Route::get('/docenteHome/{plant?}',[
+		'middleware'=>'auth',
+		'uses' => 'DocenteController@index'
+]);
 
 
 /*Aedmin (responsabel de plantel)*/
 
-Route::get('/adminHome/{rol?}','AdminController@index');
+Route::get('/adminHome/{rol?}',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@index'
+]);
 
-Route::get('/matdoc','AdminController@matdoc');
+Route::get('/matdoc',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@matDoc'
+]);
 
-Route::get('/matasig','AdminController@materiasAsignadas');
+Route::get('/matasig',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@materiasAsignadas'
+]);
 
-Route::get('/listaasig/{plan?}','AdminController@listadoAsignaturas');
+Route::get('/listaasig/{plan?}',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@listadoAsignaturas'
+]);
 
-Route::get('/gruposListar/{programa?}','AdminController@listaGrupos');
+Route::get('/gruposListar/{programa?}',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@listaGrupos'
+]);
 
-Route::post('/savematdoc','AdminController@saveMatDoc');
+Route::post('/savematdoc',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@saveMatDoc'
+]);
 
-Route::post('/materiasPracticas','AdminController@materiasPracticas');
+Route::post('/materiasPracticas',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@materiasPracticas'
+]);
 
 /*Root*/
 
-Route::post('/cicloFijar','RootController@cicloFijar');
+Route::post('/cicloFijar',[
+		'middleware'=>'auth',
+		'uses' => 'RootController@cicloFijar'
+]);
 
-Route::get('/cicloSeleccionar','RootController@cicloSeleccionar');
+Route::get('/cicloSeleccionar',[
+		'middleware'=>'auth',
+		'uses' => 'RootController@cicloSeleccionar'
+]);
 
-Route::get('/getWebService','AdminController@getWebService');
+Route::get('/getWebService',[
+		'middleware'=>'auth',
+		'uses' => 'AdminController@getWebService'
+]);
+
+Route::get('/selectPlantel/{plant?}',[
+		'middleware'=>'auth',
+		'uses' => 'RootController@selectPlantel'
+]);
 
 

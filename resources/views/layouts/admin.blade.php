@@ -157,6 +157,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/listaasig') }}">Listado de asignaturas</a></li>
                                 <li><a href="{{ url('/matasig') }}">Materias asignadas</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{ url('/matdoc') }}">Asignación de materias</a></li>
                             </ul>
                         </li>
                         <li><a href="{{ url('/listaprogramas') }}">Programas</a></li>
@@ -172,6 +174,25 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Iniciar sesión<i class="fa fa-btn fa-sign-in"></i></a></li>
                     @else
+                        @if(Auth::user()->rol == 0)
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    @if(!is_null(Session::get('plant')) && isset($plantel))
+                                        {{ $plantel->first()->siglas }}
+                                    @else
+                                        Vista general                                     
+                                    @endif
+                                    <span class="caret"></span>
+                                </a>       
+                                <ul class="dropdown-menu" role="menu" style="height: auto;max-height: 500px;overflow-x: hidden;">                        
+                                    <li><a href="{{ url('/selectPlantel/vg') }}">Vista general</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    @foreach($p as $plant)
+                                        <li><a href="{{ url('/selectPlantel/'.$plant->plant) }}">{{ $plant->nomplant }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ explode(" ",Auth::user()->name)[0] }} <span class="caret"></span>
